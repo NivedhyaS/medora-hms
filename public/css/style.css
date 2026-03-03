@@ -1,0 +1,529 @@
+/* ===============================
+   GLOBAL
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: hidden;
+    color: #111827;
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+.navbar-brand {
+    font-size: 24px;
+    color: #2884cf !important;
+    /* deep medical blue */
+}
+
+
+.navbar .nav-link {
+    color: #1f2937;
+    font-weight: 500;
+    margin-right: 12px;
+}
+
+.navbar .nav-link.active {
+    color: #2563eb;
+}
+
+/* Gradient buttons in navbar */
+.btn-gradient-nav {
+    background: linear-gradient(to right, #2563eb, #06b6d4);
+    color: #ffffff !important;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-gradient-nav:hover {
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+/* Outline Login button */
+.btn-gradient-nav-outline {
+    border: 2px solid #2563eb;
+    color: #2563eb;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 14px;
+    background: transparent;
+    text-decoration: none;
+}
+
+.btn-gradient-nav-outline:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+/* ===============================
+   HERO SECTION
+================================ */
+/* ===============================
+   HERO SECTION (FIXED SPACING)
+================================ */
+.hero {
+    position: relative;
+    background: #ffffff;
+    padding-bottom: 40px;
+    /* controlled spacing */
+}
+
+.hero-text {
+    padding-top: 90px;
+    /* reduced from 120px */
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-text p {
+    margin-top: 16px;
+    color: #6b7280;
+    max-width: 520px;
+    font-size: 16px;
+}
+
+
+/* Know More button */
+.btn-gradient {
+    margin-top: 25px;
+    background: linear-gradient(to right, #ec4899, #06b6d4);
+    border-radius: 50px;
+    padding: 12px 28px;
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.btn-gradient:hover {
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+/* ===============================
+   RIGHT DIAGONAL SHAPE
+================================ */
+.hero-shape {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #4338ca, #2563eb);
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: -1;
+}
+
+/* ===============================
+   NETWORK EFFECT (STATIC)
+================================ */
+.network-pattern {
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+        radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+        radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+    background-size: 120px 120px;
+    opacity: 0.5;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 991px) {
+    .hero-shape {
+        display: none;
+    }
+
+    .hero-text {
+        padding-top: 80px;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+}
+
+/* HOME JOURNEY SECTION */
+.home-journey {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.journey-subtitle {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.journey-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.journey-title span {
+    color: #2563eb
+    /* soft healthcare pink */
+}
+
+.journey-tagline {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+.journey-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.journey-video {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    max-width: 500px;
+    margin: auto;
+}
+
+.journey-video iframe {
+    width: 100%;
+    height: 280px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .journey-title {
+        font-size: 32px;
+    }
+
+    .journey-video iframe {
+        height: 220px;
+        margin-top: 30px;
+    }
+}
+
+.hero {
+    margin-bottom: 0 !important;
+    padding-bottom: 40px;
+    /* controlled spacing */
+}
+
+.home-journey {
+    padding: 40px 0 80px;
+    /* ↓ reduced top space */
+    background: #ffffff;
+}
+
+.journey-subtitle {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.journey-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.journey-title span {
+    color: #3d79fa;
+    /* soft medical accent */
+}
+
+.journey-tagline {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+.journey-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 16px;
+    max-width: 900px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .journey-title {
+        font-size: 32px;
+    }
+
+    .journey-tagline {
+        font-size: 18px;
+    }
+}
+
+/* ===============================
+   ABOUT MEDORA HOSPITAL
+================================ */
+.about-medora {
+    padding: 70px 0;
+    background: #ffffff;
+}
+
+.about-subtitle {
+    font-size: 17px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.about-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.about-title span {
+    color: #1d95c8;
+    /* Medora brand blue */
+}
+
+.about-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 16px;
+    max-width: 950px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 30px;
+    }
+}
+
+/* ===============================
+   OUR DEPARTMENTS
+================================ */
+.departments-section {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.section-header h6 {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.section-header h2 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+/* Department Card */
+.dept-card {
+    height: 120px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    gap: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dept-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.dept-card h5 {
+    margin: 0;
+    font-size: 18px;
+    color: #111827;
+}
+
+/* Icon circle */
+.dept-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+/* Gradient backgrounds */
+.cardiology {
+    background: linear-gradient(90deg, #ffc1c1, #f8b4b4);
+}
+
+.orthopedics {
+    background: linear-gradient(90deg, #fde7b6, #fde68a);
+}
+
+.oncology {
+    background: linear-gradient(90deg, #d1fae5, #86efac);
+}
+
+.neurology {
+    background: linear-gradient(90deg, #e9d5ff, #d8b4fe);
+}
+
+.gastro {
+    background: linear-gradient(90deg, #cffafe, #67e8f9);
+}
+
+.nephrology {
+    background: linear-gradient(90deg, #dbeafe, #bfdbfe);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dept-card {
+        height: 100px;
+    }
+
+    .section-header h2 {
+        font-size: 32px;
+    }
+}
+
+/* ===============================
+   CONTACT US SECTION
+================================ */
+.contact-section {
+    padding: 80px 0;
+    background: #f9fafb;
+}
+
+.section-header h6 {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.section-header h2 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.contact-subtext {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 40px;
+    max-width: 700px;
+}
+
+.contact-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 30px;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-4px);
+}
+
+.contact-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #e0f2fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.contact-card h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.contact-card p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 32px;
+    }
+}
+
+/* ===============================
+   NAVBAR (FIXED & CLEAN)
+================================ */
+
+.navbar {
+    padding: 14px 0;
+}
+
+
+/* Brand */
+.navbar-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2884cf !important;
+    /* Medora Blue */
+    text-transform: none;
+    /* prevent ALL CAPS */
+    white-space: nowrap;
+    /* prevent wrapping */
+}
+
+/* Menu list */
+.navbar-nav {
+    gap: 22px;
+    margin: 0;
+}
+
+/* Links */
+.navbar .nav-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f2937;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    /* keeps About Us on one line */
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: #2884cf;
+}
+
+/* Login button */
+.navbar .btn {
+    font-size: 14px;
+    padding: 6px 14px;
+    white-space: nowrap;
+}

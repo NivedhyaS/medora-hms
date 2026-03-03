@@ -1,0 +1,24 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="medora_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Logo Icon -->
+  <g transform="translate(5, 5)">
+    <!-- Circle Background -->
+    <circle cx="25" cy="25" r="24" fill="url(#medora_grad)" />
+    <!-- Heartbeat / M Shape -->
+    <path d="M10,32 L18,32 L22,15 L28,40 L33,25 L40,25" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Small Plus/Cross Sign -->
+    <rect x="34" cy="8" width="10" height="10" rx="2" fill="white" opacity="0.9" />
+    <path d="M39,10 L39,16 M36,13 L42,13" stroke="#2563eb" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Hospital Name Text -->
+  <text x="65" y="32" font-family="Arial, sans-serif" font-weight="bold" font-size="22" fill="#1e293b">Medora</text>
+  <text x="65" y="50" font-family="Arial, sans-serif" font-weight="normal" font-size="12" fill="#64748b" letter-spacing="1">HOSPITAL GROUP</text>
+</svg>
