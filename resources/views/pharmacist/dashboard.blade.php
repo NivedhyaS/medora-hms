@@ -92,8 +92,8 @@
                     @foreach($pendingUploaded as $up)
                         <tr style="border-bottom: 1px solid #f3f4f6;">
                             <td style="padding: 12px;">
-                                <div style="font-weight: 600;">{{ $up->patient->user->name }}</div>
-                                <div style="font-size: 11px; color: #6b7280;">ID: {{ $up->patient->patient_id }}</div>
+                                <div style="font-weight: 600;">{{ $up->patient?->user?->name ?? 'N/A' }}</div>
+                                <div style="font-size: 11px; color: #6b7280;">ID: {{ $up->patient?->patient_id ?? 'N/A' }}</div>
                             </td>
                             <td style="padding: 12px;">
                                 <a href="{{ Storage::url($up->file_path) }}" target="_blank"

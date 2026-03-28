@@ -92,7 +92,7 @@
             <!-- Prescription Form (Hidden) -->
             <div id="prescription-form"
                 style="display: none; margin-top: 20px; background: #f9fafb; padding: 20px; border-radius: 8px;">
-                <form action="{{ route('doctor.prescriptions.store') }}" method="POST">
+                <form action="{{ route('doctor.prescriptions.store') }}" method="POST" id="prescription-submission-form">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                     <div style="margin-bottom: 10px;">
@@ -104,7 +104,7 @@
                             style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Medicines</label>
                         <div style="position: relative; margin-bottom: 10px;">
                             <input type="text" id="medicine-search" class="search-input" style="position: static;"
-                                placeholder="Search medicine..." autocomplete="off">
+                                placeholder="Search medicine or type name..." autocomplete="off">
                             <div id="medicine-results"
                                 style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e2e8f0; border-radius: 4px; z-index: 1000; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                             </div>
@@ -115,7 +115,7 @@
                             <!-- Selected medicines will appear here -->
                         </div>
 
-                        <textarea name="medicines" id="medicines-hidden" style="display: none;" required></textarea>
+                        <input type="hidden" name="medicines" id="medicines-hidden">
                     </div>
                     <div style="margin-bottom: 10px;">
                         <label style="display: block; margin-bottom: 3px; font-size: 13px;">Dosage</label>
@@ -127,8 +127,9 @@
                         <textarea name="instructions" class="search-input"
                             style="height: 60px; padding: 10px; position: static;"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; height: auto; padding: 10px;">Save
-                        Prescription</button>
+                    <button type="submit" id="save-prescription-btn" class="btn btn-primary" style="width: 100%; height: auto; padding: 12px; font-weight: 700;">
+                        <i class="fas fa-save me-2"></i> Save Prescription
+                    </button>
                 </form>
             </div>
 
@@ -308,6 +309,7 @@
         }
 
         // Medicine Search Logic
+        const prescriptionForm = document.getElementById('prescription-submission-form');
         const medicineSearch = document.getElementById('medicine-search');
         const medicineResults = document.getElementById('medicine-results');
         const selectedList = document.getElementById('selected-medicines-list');
@@ -402,9 +404,29 @@
             medicinesHidden.value = text;
         }
 
+        // Handle form submission to include typed text if no medicines selected
+        const pForm = document.getElementById('prescription-submission-form');
+        if(pForm) {
+            pForm.onsubmit = function (e) {
+                // If the list is empty, take the text from the search box
+                if (selectedMedicines.length === 0 && medicineSearch.value.trim() !== '') {
+                    medicinesHidden.value = medicineSearch.value.trim();
+                }
+
+                if (medicinesHidden.value === '') {
+                    e.preventDefault();
+                    alert('Please add at least one medicine or type the medicine name.');
+                    return false;
+                }
+                
+                // Final override to ensure it submits
+                return true;
+            };
+        }
+
         // Close results when clicking outside
         document.addEventListener('click', function (e) {
-            if (!medicineSearch.contains(e.target) && !medicineResults.contains(e.target)) {
+            if (medicineSearch && !medicineSearch.contains(e.target) && medicineResults && !medicineResults.contains(e.target)) {
                 medicineResults.style.display = 'none';
             }
         });

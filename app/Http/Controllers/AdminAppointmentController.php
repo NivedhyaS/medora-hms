@@ -50,12 +50,16 @@ class AdminAppointmentController extends Controller
             'appointment_time' => 'required',
         ]);
 
-        $doctor = Doctor::find($request->doctor_id);
+        $doctor = Doctor::with('schedules')->find($request->doctor_id);
 
-        // Check availability day
+        // Check availability day via schedule or legacy field
         $dayOfWeek = Carbon::parse($request->appointment_date)->format('l');
-        if (!in_array($dayOfWeek, $doctor->available_days)) {
-            return back()->with('error', 'Doctor is not available on ' . $dayOfWeek);
+        $schedule = $doctor->schedules->where('day_of_week', $dayOfWeek)->first();
+        if (!$schedule) {
+            $availableDays = is_array($doctor->available_days) ? $doctor->available_days : [];
+            if (!in_array($dayOfWeek, $availableDays)) {
+                return back()->with('error', 'Doctor is not available on ' . $dayOfWeek);
+            }
         }
 
         $patient = \App\Models\Patient::where('user_id', $request->user_id)->first();
@@ -92,23 +96,30 @@ class AdminAppointmentController extends Controller
 
     public function getSlots($doctorId, $date)
     {
-        $doctor = Doctor::findOrFail($doctorId);
-
-        // Check availability day
+        $doctor = Doctor::with('schedules')->findOrFail($doctorId);
         $dayOfWeek = Carbon::parse($date)->format('l');
-        if (!in_array($dayOfWeek, $doctor->available_days)) {
-            return response()->json(['error' => 'Doctor unavailable'], 422);
-        }
 
-        $start = Carbon::parse($doctor->availability_start);
-        $end = Carbon::parse($doctor->availability_end);
+        // Find schedule for specific day
+        $schedule = $doctor->schedules->where('day_of_week', $dayOfWeek)->first();
+
+        if (!$schedule) {
+            $availableDays = is_array($doctor->available_days) ? $doctor->available_days : [];
+            if (!in_array($dayOfWeek, $availableDays)) {
+                return response()->json(['error' => 'Doctor unavailable'], 422);
+            }
+            $start = Carbon::parse($doctor->availability_start);
+            $end = Carbon::parse($doctor->availability_end);
+            $slotDuration = $doctor->slot_duration ?? 15;
+        } else {
+            $start = Carbon::parse($schedule->start_time);
+            $end = Carbon::parse($schedule->end_time);
+            $slotDuration = $schedule->slot_duration ?: 15;
+        }
 
         $bookedTimes = Appointment::where('doctor_id', $doctorId)
             ->where('appointment_date', $date)
             ->pluck('appointment_time')
-            ->map(function ($time) {
-                return Carbon::parse($time)->format('H:i');
-            })
+            ->map(fn($time) => Carbon::parse($time)->format('H:i'))
             ->toArray();
 
         $slots = [];
@@ -121,7 +132,7 @@ class AdminAppointmentController extends Controller
                 'booked' => in_array($time, $bookedTimes),
             ];
 
-            $start->addMinutes(15);
+            $start->addMinutes($slotDuration);
         }
 
         return response()->json($slots);

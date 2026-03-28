@@ -29,10 +29,10 @@
                         <td><code
                                 style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">{{ $patient->patient_id }}</code>
                         </td>
-                        <td><strong>{{ $patient->user->name }}</strong></td>
-                        <td>{{ ucfirst($patient->gender) }}</td>
-                        <td>{{ \Carbon\Carbon::parse($patient->dob)->format('d M, Y') }}</td>
-                        <td>{{ $patient->mobile }}</td>
+                        <td><strong>{{ $patient->user->name ?? 'N/A' }}</strong></td>
+                        <td>{{ ucfirst($patient->user->gender ?? '-') }}</td>
+                        <td>{{ $patient->user && $patient->user->dob ? \Carbon\Carbon::parse($patient->user->dob)->format('d M, Y') : '-' }}</td>
+                        <td>{{ $patient->user->mobile ?? '-' }}</td>
                         <td>
                             <div style="display: flex; gap: 8px;">
                                 <a href="{{ route('reception.patients.show', $patient->user_id) }}" class="btn"

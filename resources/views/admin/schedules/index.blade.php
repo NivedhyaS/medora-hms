@@ -50,9 +50,11 @@
                         </td>
                         <td>
                             <div class="action-buttons">
-                                <a href="{{ route('admin.schedules.edit', $doctor->id) }}" class="btn btn-edit"
+                                <a href="{{ route('admin.schedules.edit', $doctor->id) }}"
+                                    class="btn"
+                                    style="background: #eff6ff; color: #2563eb; padding: 8px 16px; white-space: nowrap;"
                                     title="Manage Schedule">
-                                    <i class="fas fa-calendar-alt"></i> Manage
+                                    <i class="fas fa-calendar-alt"></i> Manage Schedule
                                 </a>
                             </div>
                         </td>

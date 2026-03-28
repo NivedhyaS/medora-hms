@@ -81,12 +81,8 @@ class PatientAuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // 👇 THIS IS THE KEY PART
-            if (auth()->user()->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            }
-
-            return redirect()->route('dashboard'); // patient
+            // Redirect to role-based dashboard
+            return redirect()->route('dashboard');
         }
 
         return back()->withErrors([

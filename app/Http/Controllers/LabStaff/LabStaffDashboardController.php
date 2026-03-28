@@ -16,7 +16,9 @@ class LabStaffDashboardController extends Controller
     {
         // Show all pending test requests
         $pendingTests = LabTest::where('status', 'pending')
-            ->with(['patient.user', 'doctor.user', 'testType.parameters'])
+            ->with(['patient.user' => function($q) {
+                $q->withTrashed();
+            }, 'doctor.user', 'testType.parameters'])
             ->latest()
             ->get();
 

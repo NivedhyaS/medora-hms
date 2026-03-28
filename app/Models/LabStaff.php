@@ -26,8 +26,8 @@ class LabStaff extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function labReports()
+    public function labTests()
     {
-        return $this->hasMany(LabReport::class);
+        return $this->hasMany(LabTest::class);
     }
 }

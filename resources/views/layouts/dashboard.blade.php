@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - Hospital Management System</title>
 
     <!-- Favicon -->
@@ -108,6 +109,16 @@
                 </div>
             @endif
 
+            @if($errors->any())
+                <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <ul style="margin: 0; padding-left: 20px;">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if(trim($__env->yieldContent('header')))
                 <h1>@yield('header')</h1>
             @endif
@@ -136,6 +147,28 @@
                 mobileHeader?.classList.remove('nav-hidden');
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+    </script>
+    <script>
+        // Global AJAX CSRF Setup
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Global 401/419 Handler
+        $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+            if (jqXHR.status === 401 || jqXHR.status === 419) {
+                Swal.fire({
+                    title: 'Session Expired',
+                    text: 'Your session has timed out. Please login again to continue.',
+                    icon: 'warning',
+                    confirmButtonText: 'Login Now'
+                }).then(() => {
+                    window.location.href = "{{ route('auth.login') }}";
+                });
+            }
         });
     </script>
 </body>

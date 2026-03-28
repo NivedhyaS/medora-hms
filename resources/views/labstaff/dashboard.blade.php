@@ -38,10 +38,10 @@
                             </button>
 
                             <div id="upload-form-{{ $test->id }}"
-                                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); z-index: 1000; width: 450px; text-align: left;">
+                                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); z-index: 1000; width: 500px; max-height: 95vh; overflow-y: auto; text-align: left; border: 1px solid #e5e7eb;">
                                 <h3 style="margin-bottom: 20px; color: #111827;">Upload Lab Report</h3>
                                 <p style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">Patient:
-                                    <strong>{{ $test->patient->user->name }}</strong><br>Test:
+                                    <strong>{{ $test->patient->user->name ?? 'N/A' }}</strong><br>Test:
                                     <strong>{{ $test->test_name }}</strong></p>
 
                                 <form action="{{ route('labstaff.tests.upload', $test->id) }}" method="POST"
@@ -83,13 +83,6 @@
                                         <input type="text" name="remarks" class="search-input" style="position: static; width: 100%; padding: 8px;">
                                     </div>
 
-                                    <div style="margin-bottom: 25px;">
-                                        <label
-                                            style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px;">Report
-                                            File (PDF / Image)</label>
-                                        <input type="file" name="report_file" class="search-input"
-                                            style="position: static; width: 100%; padding: 8px;">
-                                    </div>
                                     <div style="display: flex; gap: 12px;">
                                         <button type="button" onclick="hideUploadForm({{ $test->id }})" class="btn btn-edit"
                                             style="flex: 1; height: auto; padding: 12px; background: #f3f4f6; color: #4b5563;">Cancel</button>

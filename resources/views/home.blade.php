@@ -331,49 +331,6 @@
             border-radius: 0;
         }
 
-        .floating-card {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            z-index: 3;
-            animation: float 6s ease-in-out infinite;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .card-1 {
-            top: 15%;
-            left: -80px;
-            /* Overlap into text section */
-            animation-delay: 0s;
-        }
-
-        .card-2 {
-            bottom: 25%;
-            left: -50px;
-            /* Overlap into text section */
-            animation-delay: 1.5s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .floating-card i {
-            color: #2563eb;
-            font-size: 20px;
-            margin-right: 10px;
-        }
 
         .hero-text {
             padding-top: 50px !important;
@@ -558,33 +515,7 @@
                 <div class="hero-image-wrapper">
                     <img src="{{ asset('img/hero-patient-care.png') }}" alt="Patient Care" class="hero-image">
 
-                    <!-- Floating Rating Badge -->
-                    <div class="floating-card card-1 d-none d-xl-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="me-2">
-                            <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                            </polygon>
-                        </svg>
-                        <div>
-                            <div class="fw-bold">4.9/5 Rating</div>
-                            <small class="text-muted">Trusted by Patients</small>
-                        </div>
-                    </div>
 
-                    <!-- Floating Badge overlaid on the split border -->
-                    <div class="floating-card card-2 d-none d-xl-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="me-2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
-                        <div>
-                            <div class="fw-bold">24/7 Support</div>
-                            <small class="text-muted">Always Available</small>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -819,7 +750,7 @@
 
         window.addEventListener('scroll', () => {
             let st = window.pageYOffset || document.documentElement.scrollTop;
-            
+
             // Scroll to Top Visibility
             if (st > 300) {
                 scrollTop.classList.add('active');
@@ -841,7 +772,7 @@
                 // Scrolling up
                 header.classList.remove('navbar-hidden');
             }
-            
+
             lastScrollTop = st <= 0 ? 0 : st;
         });
 

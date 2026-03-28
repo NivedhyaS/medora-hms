@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use App\Models\Prescription;
 use App\Models\LabTest;
 use App\Models\Doctor;
+use App\Models\UploadedPrescription;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -130,7 +131,7 @@ class PatientDashboardController extends Controller
         } else {
             $start = Carbon::parse($schedule->start_time);
             $end = Carbon::parse($schedule->end_time);
-            $slotDuration = $schedule->slot_duration;
+            $slotDuration = $schedule->slot_duration ?: 15;
         }
 
         $bookedTimes = Appointment::where('doctor_id', $doctorId)
@@ -145,6 +146,12 @@ class PatientDashboardController extends Controller
 
         while ($start < $end) {
             $time = $start->format('H:i');
+
+            // Skip past slots if today
+            if ($date == now()->toDateString() && $start->isPast()) {
+                $start->addMinutes($slotDuration);
+                continue;
+            }
 
             $slots[] = [
                 'time' => $time,

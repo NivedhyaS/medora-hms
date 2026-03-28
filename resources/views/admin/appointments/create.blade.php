@@ -218,41 +218,16 @@
         const dayError = document.getElementById('day_error');
         const submitBtn = document.getElementById('submit_btn');
 
-        let availableDays = [];
-
         function updateDoctorInfo() {
             const selected = doctorSelect.options[doctorSelect.selectedIndex];
             if (selected.value) {
-                availableDays = JSON.parse(selected.getAttribute('data-days'));
-                infoDays.textContent = availableDays.join(', ');
+                const days = JSON.parse(selected.getAttribute('data-days'));
+                infoDays.textContent = (days && days.length) ? days.join(', ') : 'Per schedule';
                 infoFee.textContent = selected.getAttribute('data-fee');
                 doctorInfo.style.display = 'block';
-                validateDate();
+                loadSlots();
             } else {
                 doctorInfo.style.display = 'none';
-            }
-        }
-
-        function validateDate() {
-            if (!dateInput.value || availableDays.length === 0) return;
-
-            const date = new Date(dateInput.value);
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const dayName = days[date.getDay()];
-
-            if (!availableDays.includes(dayName)) {
-                dayError.textContent = `Doctor is unavailable on ${dayName}s.`;
-                dayError.style.display = 'block';
-                submitBtn.disabled = true;
-                slotsDiv.innerHTML = '';
-                hint.style.display = 'none';
-                return false;
-            } else {
-                dayError.style.display = 'none';
-                submitBtn.disabled = false;
-                hint.style.display = 'flex';
-                loadSlots();
-                return true;
             }
         }
 
@@ -262,15 +237,22 @@
 
             if (!doctorId || !date) return;
 
+            dayError.style.display = 'none';
+            submitBtn.disabled = false;
             slotsDiv.innerHTML = '';
             hint.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking availability...';
 
             fetch(`/admin/appointments/slots/${doctorId}/${date}`)
-                .then(res => res.json())
+                .then(res => {
+                    if (!res.ok) {
+                        return res.json().then(d => { throw d; });
+                    }
+                    return res.json();
+                })
                 .then(data => {
                     slotsDiv.innerHTML = '';
 
-                    if (data.length === 0 || data.error) {
+                    if (!data || data.length === 0) {
                         hint.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> No slots available for the selected date';
                         return;
                     }
@@ -299,13 +281,17 @@
                         slotsDiv.appendChild(div);
                     });
                 })
-                .catch(() => {
-                    hint.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Doctor unavailable on this day';
+                .catch(err => {
+                    slotsDiv.innerHTML = '';
+                    const msg = (err && err.error) ? err.error : 'Doctor unavailable on this day';
+                    hint.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> ' + msg;
+                    dayError.textContent = msg;
+                    dayError.style.display = 'block';
                 });
         }
 
         doctorSelect.addEventListener('change', updateDoctorInfo);
-        dateInput.addEventListener('change', validateDate);
+        dateInput.addEventListener('change', loadSlots);
 
         document.getElementById('bookForm').onsubmit = function (e) {
             if (!timeInput.value) {

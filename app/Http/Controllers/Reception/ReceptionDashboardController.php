@@ -26,7 +26,7 @@ class ReceptionDashboardController extends Controller
 
     public function patients()
     {
-        $patients = Patient::with('user')->latest()->get();
+        $patients = Patient::with(['user' => fn($q) => $q->withTrashed()])->latest()->get()->filter(fn($p) => $p->user !== null);
         return view('reception.patients.index', compact('patients'));
     }
 
@@ -83,7 +83,7 @@ class ReceptionDashboardController extends Controller
 
     public function createAppointment()
     {
-        $patients = Patient::with('user')->get();
+        $patients = Patient::with(['user' => fn($q) => $q->withTrashed()])->get()->filter(fn($p) => $p->user !== null);
         $doctors = Doctor::all();
         return view('reception.appointments.create', compact('patients', 'doctors'));
     }
@@ -97,13 +97,17 @@ class ReceptionDashboardController extends Controller
             'appointment_time' => 'required',
         ]);
 
-        $doctor = Doctor::find($request->doctor_id);
+        $doctor = Doctor::with('schedules')->find($request->doctor_id);
         $patient = Patient::find($request->patient_id);
 
-        // Check if day is available
+        // Check if day is available via schedule or legacy field
         $dayOfWeek = Carbon::parse($request->appointment_date)->format('l');
-        if (!in_array($dayOfWeek, $doctor->available_days)) {
-            return back()->with('error', 'Doctor is not available on this day.');
+        $schedule = $doctor->schedules->where('day_of_week', $dayOfWeek)->first();
+        if (!$schedule) {
+            $availableDays = is_array($doctor->available_days) ? $doctor->available_days : [];
+            if (!in_array($dayOfWeek, $availableDays)) {
+                return back()->with('error', 'Doctor is not available on this day.');
+            }
         }
 
         $tokenNo = Appointment::where('doctor_id', $request->doctor_id)
@@ -231,11 +235,25 @@ class ReceptionDashboardController extends Controller
 
     public function getSlots($doctorId, $date)
     {
-        $doctor = Doctor::findOrFail($doctorId);
+        $doctor = Doctor::with('schedules')->findOrFail($doctorId);
+        $dayOfWeek = Carbon::parse($date)->format('l');
 
-        // Use the common logic from AdminAppointmentController (or duplicated for now to avoid cross-controller calls if not needed)
-        $start = Carbon::parse($doctor->availability_start);
-        $end = Carbon::parse($doctor->availability_end);
+        // Find schedule for specific day
+        $schedule = $doctor->schedules->where('day_of_week', $dayOfWeek)->first();
+
+        if (!$schedule) {
+            $availableDays = is_array($doctor->available_days) ? $doctor->available_days : [];
+            if (!in_array($dayOfWeek, $availableDays)) {
+                return response()->json(['error' => 'Doctor is not available on this day.'], 422);
+            }
+            $start = Carbon::parse($doctor->availability_start);
+            $end = Carbon::parse($doctor->availability_end);
+            $slotDuration = $doctor->slot_duration ?? 15;
+        } else {
+            $start = Carbon::parse($schedule->start_time);
+            $end = Carbon::parse($schedule->end_time);
+            $slotDuration = $schedule->slot_duration ?: 15;
+        }
 
         $bookedTimes = Appointment::where('doctor_id', $doctorId)
             ->where('appointment_date', $date)
@@ -246,11 +264,18 @@ class ReceptionDashboardController extends Controller
         $slots = [];
         while ($start < $end) {
             $time = $start->format('H:i');
+
+            // Skip past slots if today
+            if ($date == now()->toDateString() && $start->isPast()) {
+                $start->addMinutes($slotDuration);
+                continue;
+            }
+
             $slots[] = [
                 'time' => $time,
                 'booked' => in_array($time, $bookedTimes),
             ];
-            $start->addMinutes(15);
+            $start->addMinutes($slotDuration);
         }
 
         return response()->json($slots);

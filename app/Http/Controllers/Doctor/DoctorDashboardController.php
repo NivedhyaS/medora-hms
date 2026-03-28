@@ -69,21 +69,18 @@ class DoctorDashboardController extends Controller
     {
         $doctor = Auth::user()->doctor;
 
-        // Section B: Visit History WITH THIS DOCTOR
+        // Section B: Visit History
         $visitHistory = Appointment::where('patient_id', $patient->id)
-            ->where('doctor_id', $doctor->id)
             ->orderBy('appointment_date', 'desc')
             ->get();
 
         // Section C: Past Prescriptions
         $prescriptions = Prescription::where('patient_id', $patient->id)
-            ->where('doctor_id', $doctor->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
         // Section D: Lab Reports
         $labTests = LabTest::where('patient_id', $patient->id)
-            ->where('doctor_id', $doctor->id)
             ->orderBy('requested_at', 'desc')
             ->get();
 

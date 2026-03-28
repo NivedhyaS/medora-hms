@@ -11,8 +11,15 @@ class PharmacistDashboardController extends Controller
 {
     public function index()
     {
-        $pendingPrescriptions = Prescription::where('status', 'pending')->latest()->take(10)->get();
-        $pendingUploaded = \App\Models\UploadedPrescription::where('status', 'pending')->latest()->get();
+        $pendingPrescriptions = Prescription::with([
+            'patient.user' => fn($q) => $q->withTrashed(),
+            'doctor' => fn($q) => $q->withTrashed()
+        ])->where('status', 'pending')->latest()->take(10)->get();
+        
+        $pendingUploaded = \App\Models\UploadedPrescription::with([
+            'patient.user' => fn($q) => $q->withTrashed()
+        ])->where('status', 'pending')->latest()->get();
+        
         $lowStockMedicines = Medicine::where('quantity', '<', 10)->get();
 
         return view('pharmacist.dashboard', compact('pendingPrescriptions', 'lowStockMedicines', 'pendingUploaded'));
@@ -20,7 +27,10 @@ class PharmacistDashboardController extends Controller
 
     public function prescriptions()
     {
-        $prescriptions = Prescription::latest()->get();
+        $prescriptions = Prescription::with([
+            'patient.user' => fn($q) => $q->withTrashed(),
+            'doctor' => fn($q) => $q->withTrashed()
+        ])->latest()->get();
         return view('pharmacist.prescriptions', compact('prescriptions'));
     }
 
@@ -37,7 +47,9 @@ class PharmacistDashboardController extends Controller
 
     public function uploadedPrescriptions()
     {
-        $uploadedPrescriptions = \App\Models\UploadedPrescription::with('patient.user')->latest()->get();
+        $uploadedPrescriptions = \App\Models\UploadedPrescription::with([
+            'patient.user' => fn($q) => $q->withTrashed()
+        ])->latest()->get();
         return view('pharmacist.uploaded_prescriptions', compact('uploadedPrescriptions'));
     }
 
