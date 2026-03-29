@@ -10,9 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('lab_staff', function (Blueprint $table) {
-            $table->string('lab_id')->after('id')->unique()->nullable();
-        });
+        if (!Schema::hasColumn('lab_staff', 'lab_id')) {
+            Schema::table('lab_staff', function (Blueprint $table) {
+                $table->string('lab_id')->after('id')->unique()->nullable();
+            });
+        }
     }
 
     /**

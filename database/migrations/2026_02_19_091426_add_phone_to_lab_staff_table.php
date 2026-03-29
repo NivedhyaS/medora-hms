@@ -9,12 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
- public function up()
-{
-    Schema::table('lab_staff', function (Blueprint $table) {
-        $table->string('phone')->after('name');
-    });
-}
+    public function up()
+    {
+        if (!Schema::hasColumn('lab_staff', 'phone')) {
+            Schema::table('lab_staff', function (Blueprint $table) {
+                $table->string('phone')->after('name');
+            });
+        }
+    }
 
 public function down()
 {
