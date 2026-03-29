@@ -40,5 +40,11 @@ class DatabaseSeeder extends Seeder
         foreach ($specializations as $sp) {
             \App\Models\Specialization::firstOrCreate(['name' => $sp]);
         }
+
+        // Create Medicines and Lab Tests
+        $this->call([
+            MedicineSeeder::class,
+            LabTestTypeSeeder::class,
+        ]);
     }
 }
