@@ -269,7 +269,7 @@
 
                 <div class="form-group">
                     <label>Doctor Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required>
+                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Enter doctor's full name" required autocomplete="off">
                 </div>
 
                 <div class="form-group">
@@ -284,12 +284,12 @@
 
                 <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="text" name="phone" value="{{ old('phone') }}" required>
+                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Enter phone number" required autocomplete="off">
                 </div>
 
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="doctor@hospital.com" required autocomplete="off">
                 </div>
 
                 <div class="form-group full-width">

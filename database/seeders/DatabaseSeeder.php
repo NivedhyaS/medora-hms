@@ -22,5 +22,23 @@ class DatabaseSeeder extends Seeder
             'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
             'role' => User::ROLE_ADMIN,
         ]);
+
+        // Create Default Specializations
+        $specializations = [
+            'Cardiology', 
+            'Dermatology', 
+            'Neurology', 
+            'Pediatrics', 
+            'Orthopedics', 
+            'General Medicine', 
+            'Gynecology', 
+            'Oncology', 
+            'ENT (Ear, Nose, Throat)', 
+            'Psychiatry'
+        ];
+
+        foreach ($specializations as $sp) {
+            \App\Models\Specialization::firstOrCreate(['name' => $sp]);
+        }
     }
 }

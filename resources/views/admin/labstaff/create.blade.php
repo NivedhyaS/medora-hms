@@ -100,19 +100,19 @@
                     <!-- Name -->
                     <div class="form-group full-width">
                         <label class="form-label">Full Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
+                        <input type="text" name="name" class="form-control" placeholder="Enter full name" required autocomplete="off">
                     </div>
 
                     <!-- Email -->
                     <div class="form-group">
                         <label class="form-label">Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="staff@hospital.com" required>
+                        <input type="email" name="email" class="form-control" placeholder="email@example.com" required autocomplete="off">
                     </div>
 
                     <!-- Phone -->
                     <div class="form-group">
                         <label class="form-label">Phone Number</label>
-                        <input type="text" name="phone" class="form-control" placeholder="e.g. +1 234 567 890" required>
+                        <input type="text" name="phone" class="form-control" placeholder="Enter phone number" required autocomplete="off">
                     </div>
 
                     <!-- Department -->

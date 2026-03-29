@@ -125,7 +125,7 @@
 
                     <div>
                         <label>Full Name</label>
-                        <input type="text" name="name" placeholder="Enter full name" required>
+                        <input type="text" name="name" placeholder="Enter pharmacist's full name" required autocomplete="off">
                     </div>
 
                     <div>
@@ -145,12 +145,12 @@
 
                     <div>
                         <label>Contact Number</label>
-                        <input type="text" name="phone" placeholder="Enter phone number" required>
+                        <input type="text" name="phone" placeholder="Enter phone number" required autocomplete="off">
                     </div>
 
                     <div>
                         <label>Email Address</label>
-                        <input type="email" name="email" placeholder="Enter email address" required>
+                        <input type="email" name="email" placeholder="pharmacist@hospital.com" required autocomplete="off">
                     </div>
 
                     <div class="full-width">
