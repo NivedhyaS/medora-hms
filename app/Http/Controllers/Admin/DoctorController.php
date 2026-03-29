@@ -11,7 +11,7 @@ class DoctorController extends Controller
     // READ – list doctors
     public function index()
     {
-        $doctors = Doctor::with('specialization')->get();
+        $doctors = Doctor::with(['specialization', 'user' => fn($q) => $q->withTrashed()])->get();
         return view('admin.doctors.index', compact('doctors'));
     }
 
@@ -88,7 +88,7 @@ class DoctorController extends Controller
     // EDIT – show edit form
     public function edit(Doctor $doctor)
     {
-        $doctor->load('schedules');
+        $doctor->load(['schedules', 'user' => fn($q) => $q->withTrashed()]);
         $specializations = \App\Models\Specialization::all();
         return view('admin.doctors.edit', compact('doctor', 'specializations'));
     }

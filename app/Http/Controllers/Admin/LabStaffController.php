@@ -13,7 +13,7 @@ class LabStaffController extends Controller
     // =============================================
     public function index()
     {
-        $labstaff = LabStaff::all();
+        $labstaff = LabStaff::with(['user' => fn($q) => $q->withTrashed()])->get();
         return view('admin.labstaff.index', compact('labstaff'));
     }
 
@@ -79,7 +79,7 @@ class LabStaffController extends Controller
     // =============================================
     public function edit($id)
     {
-        $staff = LabStaff::findOrFail($id);
+        $staff = LabStaff::with(['user' => fn($q) => $q->withTrashed()])->findOrFail($id);
         return view('admin.labstaff.edit', compact('staff'));
     }
 
@@ -89,7 +89,7 @@ class LabStaffController extends Controller
     // =============================================
     public function update(Request $request, $id)
     {
-        $staff = LabStaff::findOrFail($id);
+        $staff = LabStaff::with(['user' => fn($q) => $q->withTrashed()])->findOrFail($id);
         $user = $staff->user;
 
         $request->validate([

@@ -10,7 +10,7 @@ class PharmacistController extends Controller
 {
     public function index()
     {
-        $pharmacists = Pharmacist::all();
+        $pharmacists = Pharmacist::with(['user' => fn($q) => $q->withTrashed()])->get();
         return view('admin.pharmacists.index', compact('pharmacists'));
     }
 
@@ -56,7 +56,7 @@ class PharmacistController extends Controller
 
     public function edit($id)
     {
-        $pharmacist = Pharmacist::findOrFail($id);
+        $pharmacist = Pharmacist::with(['user' => fn($q) => $q->withTrashed()])->findOrFail($id);
         return view('admin.pharmacists.edit', compact('pharmacist'));
     }
 
