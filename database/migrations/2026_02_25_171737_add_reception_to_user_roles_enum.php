@@ -10,11 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['admin', 'doctor', 'patient', 'pharmacist', 'lab_staff', 'reception'])
-                ->default('patient')
-                ->change();
-        });
+        // Use raw SQL for PostgreSQL to avoid 'enum' change syntax errors
+        \Illuminate\Support\Facades\DB::statement("
+            ALTER TABLE users 
+            ALTER COLUMN role TYPE varchar(255),
+            ALTER COLUMN role SET DEFAULT 'patient'
+        ");
     }
 
     /**
