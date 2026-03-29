@@ -438,76 +438,98 @@
         @media (max-width: 768px) {
             .hero {
                 min-height: auto;
-                padding-top: 60px !important;
+                padding-top: 100px !important;
+                background: #ffffff;
             }
 
             .hero-row {
-                flex-direction: column-reverse; /* Put text above image or vice-versa? Actually, text-first is better for healthcare */
                 flex-direction: column;
                 min-height: auto;
             }
 
             .hero-text-col {
-                padding: 40px 0 !important;
+                padding: 40px 20px !important;
                 text-align: center;
+                display: block;
             }
 
             .hero-content-inner {
-                padding: 0 20px;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0;
             }
 
             .hero-text h1 {
-                font-size: 34px;
-                margin-bottom: 20px;
+                font-size: 38px;
+                margin-bottom: 15px;
+                line-height: 1.2;
             }
 
             .hero-text p {
                 font-size: 16px;
-                margin-bottom: 25px;
+                margin-bottom: 30px;
+                padding: 0 10px;
             }
 
             .trust-badge {
                 margin: 0 auto 20px;
+                background: #eff6ff;
             }
 
             .hero-btns {
-                display: flex;
+                display: flex !important;
                 flex-direction: column;
                 gap: 12px;
                 align-items: center;
+                padding: 0 10px;
             }
 
             .btn-modern-primary, .btn-modern-outline {
                 width: 100%;
-                max-width: 280px;
-                margin-right: 0 !important;
+                max-width: 100%;
+                margin: 0 !important;
+                padding: 14px;
+                display: block;
+                text-align: center;
             }
 
             .hero-image-col {
-                min-height: 300px;
-                margin-top: 20px;
+                min-height: 350px;
+                margin-top: 0;
+                overflow: hidden;
+            }
+
+            .hero-image-wrapper::before, .hero-image-wrapper::after {
+                display: none; /* Remove gradients on mobile for a cleaner look */
+            }
+
+            .hero-image {
+                height: 350px;
+                border-radius: 20px;
+                padding: 20px;
+                object-fit: cover;
             }
 
             .section-title {
-                font-size: 28px;
+                font-size: 32px;
+                text-align: center;
+            }
+
+            .section-subtitle {
+                text-align: center;
             }
 
             .home-journey, .about-medora {
-                padding: 60px 0;
-            }
-
-            .dept-card {
-                margin-bottom: 10px;
+                padding: 60px 20px;
+                text-align: center;
             }
 
             .navbar-brand img {
-                height: 45px;
+                height: 50px;
             }
 
-            /* Fix contact cards for mobile */
-            .contact-card {
-                padding: 20px;
-                margin-bottom: 15px;
+            .navbar-toggler {
+                padding: 8px;
             }
         }
     </style>
