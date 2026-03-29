@@ -106,7 +106,7 @@
                     <!-- Email -->
                     <div class="form-group">
                         <label class="form-label">Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="email@example.com" required autocomplete="off">
+                        <input type="email" name="email" class="form-control" placeholder="" required autocomplete="off">
                     </div>
 
                     <!-- Phone -->

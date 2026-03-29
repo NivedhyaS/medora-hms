@@ -289,7 +289,7 @@
 
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="doctor@hospital.com" required autocomplete="off">
+                    <input type="email" name="email" value="{{ old('email') }}" required autocomplete="off">
                 </div>
 
                 <div class="form-group full-width">

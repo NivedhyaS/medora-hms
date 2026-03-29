@@ -150,7 +150,7 @@
 
                     <div>
                         <label>Email Address</label>
-                        <input type="email" name="email" placeholder="pharmacist@hospital.com" required autocomplete="off">
+                        <input type="email" name="email" placeholder="" required autocomplete="off">
                     </div>
 
                     <div class="full-width">
