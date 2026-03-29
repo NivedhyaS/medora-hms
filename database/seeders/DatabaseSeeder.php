@@ -15,11 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create Your Custom Admin
+        User::create([
+            'name' => 'Medora Admin',
+            'email' => 'admin@medora.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
+            'role' => User::ROLE_ADMIN,
         ]);
     }
 }
