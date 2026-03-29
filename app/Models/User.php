@@ -15,7 +15,7 @@ class User extends Authenticatable
     const ROLE_RECEPTION = 'reception';
     const ROLE_ADMIN = 'admin';
     const ROLE_DOCTOR = 'doctor';
-    const ROLE_LAB_STAFF = 'lab_staff';
+    const ROLE_LAB_STAFF = 'labstaff';
     const ROLE_PHARMACIST = 'pharmacist';
     const ROLE_PATIENT = 'patient';
 

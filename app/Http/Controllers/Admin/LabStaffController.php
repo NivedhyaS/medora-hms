@@ -46,7 +46,7 @@ class LabStaffController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
-            'role' => 'lab_staff',
+            'role' => 'labstaff',
         ]);
 
         LabStaff::create([

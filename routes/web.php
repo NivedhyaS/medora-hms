@@ -161,7 +161,7 @@ Route::get('/dashboard', function () {
     return match ($user->role) {
         'admin' => redirect()->route('admin.dashboard'),
         'doctor' => redirect()->route('doctor.dashboard'),
-        'lab_staff' => redirect()->route('labstaff.dashboard'),
+        'labstaff' => redirect()->route('labstaff.dashboard'),
         'pharmacist' => redirect()->route('pharmacist.dashboard'),
         'patient' => redirect()->route('patient.select_service'),
         'reception' => redirect()->route('reception.dashboard'),

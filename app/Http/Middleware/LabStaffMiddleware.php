@@ -16,7 +16,7 @@ class LabStaffMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'lab_staff') {
+        if (Auth::check() && Auth::user()->role === 'labstaff') {
             return $next($request);
         }
 
