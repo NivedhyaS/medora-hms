@@ -531,6 +531,22 @@
             .navbar-toggler {
                 padding: 8px;
             }
+
+            /* Disable AOS on mobile for instant readability */
+            [data-aos] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            .hero-text h1, .section-title, .journey-text, .about-text {
+                color: #1a1a1a !important; /* Strongest contrast */
+            }
+
+            .hero-text p {
+                color: #334155 !important;
+                font-weight: 500;
+            }
         }
     </style>
 </head>
