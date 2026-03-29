@@ -23,6 +23,14 @@ class DatabaseSeeder extends Seeder
             'role' => User::ROLE_ADMIN,
         ]);
 
+        // Create Default Receptionist
+        User::create([
+            'name' => 'Medora Reception',
+            'email' => 'reception@medora.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('reception123'),
+            'role' => User::ROLE_RECEPTION,
+        ]);
+
         // Create Default Specializations
         $specializations = [
             'Cardiology', 
