@@ -8,13 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('pharmacists', function (Blueprint $table) {
-            $table->string('pharm_id')->unique()->after('id');
-            $table->string('gender')->nullable()->after('phone');
-            $table->date('dob')->nullable()->after('gender');
-            $table->text('address')->nullable()->after('dob');
-            $table->string('emergency_contact')->nullable()->after('address');
-        });
+        if (!Schema::hasColumn('pharmacists', 'pharm_id')) {
+            Schema::table('pharmacists', function (Blueprint $table) {
+                $table->string('pharm_id')->unique()->after('id');
+                $table->string('gender')->nullable()->after('phone');
+                $table->date('dob')->nullable()->after('gender');
+                $table->text('address')->nullable()->after('dob');
+                $table->string('emergency_contact')->nullable()->after('address');
+            });
+        }
     }
 
     public function down(): void
