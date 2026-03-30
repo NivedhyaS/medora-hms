@@ -108,8 +108,7 @@
                 <!-- Pharmacist ID -->
                 <div class="form-group">
                     <label>Pharmacist ID</label>
-                    <input type="text" value="PHARM-{{ str_pad($pharmacist->id, 4, '0', STR_PAD_LEFT) }}" readonly
-                        class="readonly">
+                    <input type="text" name="pharm_id" value="{{ old('pharm_id', $pharmacist->pharm_id) }}" readonly class="readonly">
                 </div>
 
                 <!-- Full Name -->
