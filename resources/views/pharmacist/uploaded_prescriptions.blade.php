@@ -37,17 +37,21 @@
                                     action="{{ route('pharmacist.uploaded_prescriptions.update', $up->id) }}" method="POST">
                                     @csrf
                                     <select name="status"
-                                        style="width: 100%; padding: 5px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 12px;">
+                                        style="width: 100%; padding: 5px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
                                         <option value="pending" {{ $up->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="dispensed" {{ $up->status == 'dispensed' ? 'selected' : '' }}>Dispensed
-                                        </option>
+                                        <option value="dispensed" {{ $up->status == 'dispensed' ? 'selected' : '' }}>Dispensed</option>
+                                        <option value="approved" {{ $up->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                        <option value="completed" {{ $up->status == 'completed' ? 'selected' : '' }}>Completed</option>
                                     </select>
+                                    <input type="text" name="pharmacist_note" value="{{ $up->pharmacist_note }}" placeholder="Add note..." style="width: 100%; padding: 5px; font-size: 11px; border: 1px solid #e2e8f0; border-radius: 4px;">
                                 </form>
                             @else
                                 <span @php
                                     $colors = [
                                         'pending' => ['#fef3c7', '#92400e'],
                                         'dispensed' => ['#d1fae5', '#065f46'],
+                                        'approved' => ['#dbeafe', '#1e40af'],
+                                        'completed' => ['#e0e7ff', '#3730a3'],
                                     ];
                                     $color = $colors[$up->status] ?? ['#f3f4f6', '#1f2937'];
                                 @endphp

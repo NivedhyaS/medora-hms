@@ -56,15 +56,21 @@ class PharmacistDashboardController extends Controller
     public function updateUploadedPrescription(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,dispensed',
+            'status' => 'required|in:pending,dispensed,approved,completed',
+            'pharmacist_note' => 'nullable|string|max:500',
         ]);
 
-        $up = \App\Models\UploadedPrescription::findOrFail($id);
-        $up->update([
-            'status' => $request->status,
-        ]);
+        try {
+            $up = \App\Models\UploadedPrescription::findOrFail($id);
+            $up->update([
+                'status' => $request->status,
+                'pharmacist_note' => $request->pharmacist_note,
+            ]);
 
-        return redirect()->back()->with('success', 'Uploaded prescription status updated.');
+            return redirect()->route('pharmacist.uploaded_prescriptions')->with('success', 'Uploaded prescription status updated.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Update Failed: ' . $e->getMessage());
+        }
     }
 
     public function medicines()

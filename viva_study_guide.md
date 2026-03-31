@@ -150,4 +150,26 @@ Explaning the "Schedule & Slot" logic:
 3.  **Eager Loading**: We use `withTrashed()` in our controllers (e.g., `LabStaffController`) to ensure old reports still show the doctor’s name, even if that doctor is no longer active at the hospital.
 
 ---
+
+## 🗄️ 15. Every Table Explained (Database Schema)
+Use this list to explain the'purpose'and'structure'of every'database'table:
+
+1.  **`users`**: The central "Who are you?" table. Stores email, password, and the `role` (admin, doctor, patient, etc.). All other profiles link to this.
+2.  **`patients`**: Stores medical profiles (age, gender, blood group, address). Linked to `users`.
+3.  **`doctors`**: Stores professional profiles (fee, specialization_id, user_id).
+4.  **`specializations`**: Department names (e.g., Cardiology, Neurology). Used to categorize doctors.
+5.  **`doctor_schedules`**: Stores the rules for availability (which day, what start/end time, and how long each slot is).
+6.  **`appointments`**: The "Bridge" table. Records who is seeing which doctor, on what date/time, and the status (pending, completed, cancelled).
+7.  **`billings`**: Stores financial records related to appointments or tests (invoice no, amount, status).
+8.  **`pharmacists`**: Profile info for the pharmacy staff.
+9.  **`lab_staff`**: Profile info for the laboratory technicians.
+10. **`medicines`**: The inventory master. Stores names, barcodes (if any), current stock quantity, and price per unit.
+11. **`prescriptions`**: Records of doctor-ordered medications for a patient. Links a Patient and Doctor.
+12. **`uploaded_prescriptions`**: Stores meta-data for patient-uploaded external reports/images.
+13. **`lab_test_types`**: The "Master Test List" (e.g., Blood Glucose, Lipid Profile).
+14. **`lab_test_parameters_master`**: The "Structure" of a test. Defines what fields to fill (e.g., WBC Count) and their Normal/Min/Max ranges.
+15. **`lab_tests`**: General record of an instance of a test request (who requested it, status).
+16. **`lab_report_values`**: The actual results. Stores the measured value (e.g., "14.5") and its status (Low/Normal/High) for each parameter.
+
+---
 **Medora HMS - Delivering Healthcare through Technology.**
