@@ -32,6 +32,8 @@ https://github.com/NivedhyaS/medora-hms.git
 
 ## Screenshots
 <img width="1919" height="973" alt="image" src="https://github.com/user-attachments/assets/6c736eed-b842-4892-9536-aafa5bfbd7d3" />
+<img width="1919" height="968" alt="image" src="https://github.com/user-attachments/assets/2a40f54c-3c02-442f-b8a3-437eb416752a" />
+<img width="1919" height="933" alt="image" src="https://github.com/user-attachments/assets/340cbbef-a669-4a2a-9c24-62e89eda6269" />
 
 
 ---
